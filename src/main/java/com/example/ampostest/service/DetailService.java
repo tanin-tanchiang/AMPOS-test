@@ -13,19 +13,15 @@ import org.springframework.stereotype.Service;
 import com.example.ampostest.entity.Detail;
 import com.example.ampostest.entity.Menu;
 import com.example.ampostest.repository.DetailRepository;
-import com.example.ampostest.repository.MenuRepository;
 
 @Service
 public class DetailService {
 	@Autowired
     private DetailRepository detailRepository;
-
-    @Autowired
-    private MenuRepository menuRepository;
 	
     public List<String> retrieveDetail(Long menu_id) {
     	List<Detail> details =  detailRepository.findByMenuId(menu_id);
-    	List<String> title = new ArrayList();
+    	List<String> title = new ArrayList<String>();
     	for(Detail detail :  details) {
         	title.add(detail.getTitle());
         } 

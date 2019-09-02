@@ -1,13 +1,6 @@
 package com.example.ampostest.uitils;
 
-import java.util.Collection;
 import java.util.List;
-
-import javax.persistence.Column;
-
-import com.example.ampostest.entity.Menu;
-
-import io.swagger.annotations.ApiModelProperty;
 
 public class MenuWrapper {
 	
