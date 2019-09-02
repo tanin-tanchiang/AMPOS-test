@@ -51,6 +51,7 @@ public class BillService {
 			BillWrapper billWrapper = new BillWrapper(order, totalprice);
 			billWrapperList.add(billWrapper);
 		}
+		
 		Set<BillWrapper> set = new HashSet<BillWrapper>(billWrapperList);
 		List<BillWrapper> billWrapperListResult = new ArrayList<BillWrapper>(set);
 		return billWrapperListResult;
