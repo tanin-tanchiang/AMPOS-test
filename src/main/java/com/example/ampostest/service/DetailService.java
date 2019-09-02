@@ -32,6 +32,11 @@ public class DetailService {
     	return title;
     }
     
+    public List<Detail> filterDetail(String title) {
+    	List<Detail> details =  detailRepository.findByTitle(title);
+    	return details;
+    }
+    
     public Detail retrieveDetailWithTitle(Long menu_id, String title) {
     	return detailRepository.findByMenuIdAndTitle(menu_id, title);
     }

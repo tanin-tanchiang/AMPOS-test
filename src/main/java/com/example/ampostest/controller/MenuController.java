@@ -86,13 +86,29 @@ public class MenuController {
 	@GetMapping("/filter/keyword")
 	public List<MenuWrapper> getMenu (@RequestParam Map<String,String> allParams) {
 		List<MenuSpecification> specs = new ArrayList<MenuSpecification>();
+		String filterDetail = null;
+		if(allParams.containsKey("detail")) {
+			filterDetail = allParams.get("detail");
+		}
 		for(Map.Entry<String, String> param: allParams.entrySet()) {
 			MenuSpecification spec = new MenuSpecification(new SearchCriteria(param.getKey(), ":", param.getValue()));
 			specs.add(spec);
 		}
 		List<Menu> menuList =  menuService.FilterMenu(specs);
+		List<Menu> filterList = new ArrayList<Menu>();
+		if(!filterDetail.isEmpty()) {
+			List<Detail> filterDetailList = detailService.filterDetail(filterDetail);
+			for(Menu menu:menuList) {
+				for(Detail detail:filterDetailList) {
+					if(detail.getMenu().getId() == menu.getId()) {
+						filterList.add(menu);
+					}
+				}
+			}
+		}
+		else filterList = menuList;
 		List<MenuWrapper> menuWrapperList = new ArrayList();
-		for(Menu menu:menuList) {
+		for(Menu menu:filterList) {
 			List<String> detail = detailService.retrieveDetail(menu.getId());
 			MenuWrapper menuWrapper = new MenuWrapper(
 					menu.getName(), 
