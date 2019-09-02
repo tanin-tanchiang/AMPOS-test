@@ -76,10 +76,5 @@ public class MenuService {
             return false;
         }
     }
-	public Menu deleteById(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}	
-	
 	
 }

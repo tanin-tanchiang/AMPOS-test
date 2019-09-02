@@ -1,42 +1,84 @@
 package com.example.ampostest.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import io.swagger.annotations.ApiModel;
+
+@ApiModel(description = "About the bill .")
+@Entity
+@Table(name = "bill")
 public class Bill {
-	private Integer id;
 	
-	private Integer menu_id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 	
-	private int Quantities;
+	@Column(name = "order_id")
+	private Long orderId;
+	
+	@ManyToOne
+    @JoinColumn(name="menu_id", nullable=false)
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	@JsonIgnore
+	private Menu menu;
+	
+	@Column(name = "quantities")
+	private int quantities;
+
+	public Bill() {
+		
+	}
 	
 
-	public Bill(Integer id, Integer menu_id, int quantities) {
+	public Bill(Long orderId, Menu menu, int quantities) {
 		super();
-		this.id = id;
-		this.menu_id = menu_id;
-		Quantities = quantities;
+		this.orderId = orderId;
+		this.menu = menu;
+		this.quantities = quantities;
 	}
 
-	public Integer getId() {
+	public Long getOrderId() {
+		return orderId;
+	}
+
+	public void setOrderId(Long orderId) {
+		this.orderId = orderId;
+	}
+
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public Integer getMenu_id() {
-		return menu_id;
+	public Menu getMenu() {
+		return menu;
 	}
 
-	public void setMenu_id(Integer menu_id) {
-		this.menu_id = menu_id;
+	public void setMenu(Menu menu) {
+		this.menu = menu;
 	}
 
 	public int getQuantities() {
-		return Quantities;
+		return quantities;
 	}
 
 	public void setQuantities(int quantities) {
-		Quantities = quantities;
+		this.quantities = quantities;
 	}
 	
 	
